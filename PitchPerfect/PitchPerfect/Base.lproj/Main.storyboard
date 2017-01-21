@@ -22,17 +22,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGG-W2-SfZ">
-                                <rect key="frame" x="162.5" y="318" width="49" height="30"/>
+                                <rect key="frame" x="163" y="318" width="49" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Record"/>
+                                <connections>
+                                    <action selector="RecordAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="alS-xW-wW0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap to Record" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbt-ro-eVS">
+                                <rect key="frame" x="131" y="363" width="113" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tun-w1-9gI">
+                                <rect key="frame" x="132" y="392" width="110" height="30"/>
+                                <state key="normal" title="Stop Recording"/>
+                                <connections>
+                                    <action selector="stopRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lwV-Jv-oGi"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="FGG-W2-SfZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SEV-Ri-h3Z"/>
-                            <constraint firstItem="FGG-W2-SfZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="tS0-5E-usr"/>
+                            <constraint firstItem="tun-w1-9gI" firstAttribute="centerX" secondItem="kbt-ro-eVS" secondAttribute="centerX" id="5Vo-3w-SR3"/>
+                            <constraint firstItem="tun-w1-9gI" firstAttribute="top" secondItem="kbt-ro-eVS" secondAttribute="bottom" constant="8" id="94i-GG-XxU"/>
+                            <constraint firstItem="kbt-ro-eVS" firstAttribute="top" secondItem="FGG-W2-SfZ" secondAttribute="bottom" constant="15" id="HqW-hb-jaN"/>
+                            <constraint firstItem="kbt-ro-eVS" firstAttribute="centerX" secondItem="FGG-W2-SfZ" secondAttribute="centerX" id="UDU-Zk-aRF"/>
+                            <constraint firstItem="FGG-W2-SfZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="b49-uY-ReC"/>
+                            <constraint firstItem="FGG-W2-SfZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mzM-BG-feK"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="recordingLabel" destination="kbt-ro-eVS" id="8kp-Y5-gxb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
