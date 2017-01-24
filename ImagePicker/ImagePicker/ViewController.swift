@@ -25,5 +25,23 @@ class ViewController: UIViewController {
         self.present(nextController, animated: true, completion: nil)
     }
 
+    @IBAction func experimentAlert(_ sender: Any) {
+        let controller = UIAlertController()
+        controller.title = "Test Alert"
+        controller.message = "This is a test"
+        
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        controller.addAction(okAction)
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func experimentActivity(_ sender: Any) {
+        let image = UIImage()
+        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        self.present(controller, animated: true, completion: nil)
+    }
+    
 }
 

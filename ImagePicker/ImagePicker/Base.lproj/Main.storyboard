@@ -28,9 +28,27 @@
                                     <action selector="experiment:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L3J-JH-9Tt"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ta-sR-U9H">
+                                <rect key="frame" x="150" y="402" width="75" height="30"/>
+                                <state key="normal" title="Show Alert"/>
+                                <connections>
+                                    <action selector="experimentAlert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZKd-lp-bdg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gze-K9-K7w">
+                                <rect key="frame" x="131" y="356" width="113" height="30"/>
+                                <state key="normal" title="Show Activity"/>
+                                <connections>
+                                    <action selector="experimentActivity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0rN-Ma-DS3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6ta-sR-U9H" firstAttribute="centerX" secondItem="feN-uN-rsd" secondAttribute="centerX" id="BaU-Kq-qaB"/>
+                            <constraint firstItem="Gze-K9-K7w" firstAttribute="centerX" secondItem="feN-uN-rsd" secondAttribute="centerX" id="e0W-9T-0fm"/>
+                            <constraint firstItem="Gze-K9-K7w" firstAttribute="top" secondItem="feN-uN-rsd" secondAttribute="bottom" constant="8" id="p8M-J4-gSp"/>
+                            <constraint firstItem="6ta-sR-U9H" firstAttribute="top" secondItem="feN-uN-rsd" secondAttribute="bottom" constant="54" id="rKR-Bx-a1u"/>
                             <constraint firstItem="feN-uN-rsd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rq8-AH-Sk1"/>
                             <constraint firstItem="feN-uN-rsd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tYh-hW-a4P"/>
                         </constraints>
@@ -38,6 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="69.599999999999994" y="37.331334332833585"/>
         </scene>
     </scenes>
 </document>
