@@ -33,6 +33,11 @@
                                             <action selector="pickAnImage:" destination="BYZ-38-t0r" id="24p-D0-Cpe"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Camera" id="3k8-6f-JbH">
+                                        <connections>
+                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="WhH-bS-nSi"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -48,6 +53,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cameraButton" destination="3k8-6f-JbH" id="BcR-rO-Emw"/>
                         <outlet property="imageVIew" destination="tR1-r4-WNe" id="X4k-SH-Y3c"/>
                     </connections>
                 </viewController>

@@ -11,15 +11,23 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageVIew: UIImageView!
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+    
     @IBAction func pickAnImage(_ sender: Any) {
         
         let controller = UIImagePickerController()
         controller.delegate = self
+        controller.sourceType = .photoLibrary
         present(controller, animated: true, completion: nil)
     }
     
@@ -38,5 +46,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     }
 
+    @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        let controller = UIImagePickerController()
+        controller.delegate = self
+        controller.sourceType = .camera
+        present(controller, animated: true, completion: nil)
+    }
 }
 
