@@ -108,24 +108,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Sgenerate and save a meme image
     func save() {
-        let memedImage = generateMemedImage()
+//        let memedImage = generateMemedImage()
         // Create the meme
-        let meme = Meme(topString: topTextField.text!, bottomString: bottomTextField.text!, originalImage: imageVIew.image!, memedImage: memedImage)
+//        let meme = Meme(topString: topTextField.text!, bottomString: bottomTextField.text!, originalImage: imageVIew.image!, memedImage: memedImage)
     }
     
     func generateMemedImage() -> UIImage {
         
         // TODO: Hide toolbar and navbar
-        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.isHidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+//        UIGraphicsBeginImageContext(imageVIew.frame.size)
+//        imageVIew.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        self.tabBarController?.tabBar.isHidden = false
+//        self.tabBarController?.tabBar.isHidden = false
         return memedImage
     }
 }
