@@ -12,6 +12,8 @@
 		FF522A921E3860900017DB7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF522A901E3860900017DB7F /* Main.storyboard */; };
 		FF522A941E3860900017DB7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF522A931E3860900017DB7F /* Assets.xcassets */; };
 		FF522A971E3860900017DB7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF522A951E3860900017DB7F /* LaunchScreen.storyboard */; };
+		FF522A9F1E386F1A0017DB7F /* MemeTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF522A9E1E386F1A0017DB7F /* MemeTextFieldDelegate.swift */; };
+		FF522AA11E39286D0017DB7F /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF522AA01E39286D0017DB7F /* Meme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		FF522A931E3860900017DB7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF522A961E3860900017DB7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF522A981E3860900017DB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF522A9E1E386F1A0017DB7F /* MemeTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTextFieldDelegate.swift; sourceTree = "<group>"; };
+		FF522AA01E39286D0017DB7F /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				FF522A931E3860900017DB7F /* Assets.xcassets */,
 				FF522A951E3860900017DB7F /* LaunchScreen.storyboard */,
 				FF522A981E3860900017DB7F /* Info.plist */,
+				FF522A9E1E386F1A0017DB7F /* MemeTextFieldDelegate.swift */,
+				FF522AA01E39286D0017DB7F /* Meme.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -137,6 +143,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF522A8F1E3860900017DB7F /* ViewController.swift in Sources */,
+				FF522AA11E39286D0017DB7F /* Meme.swift in Sources */,
+				FF522A9F1E386F1A0017DB7F /* MemeTextFieldDelegate.swift in Sources */,
 				FF522A8D1E3860900017DB7F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

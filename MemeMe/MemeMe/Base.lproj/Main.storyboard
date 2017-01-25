@@ -23,10 +23,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tR1-r4-WNe">
-                                <rect key="frame" x="16" y="153" width="343" height="296"/>
+                                <rect key="frame" x="16" y="70" width="343" height="296"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1MV-Cw-uQI">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="626" width="375" height="41"/>
                                 <items>
                                     <barButtonItem title="Pick" id="Zow-dB-3ay">
                                         <connections>
@@ -40,26 +40,58 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Text Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8P-er-kcP" userLabel="Top Text Field">
+                                <rect key="frame" x="16" y="137" width="343" height="48"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Text Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UXR-yo-Rib" userLabel="Bottom Text Field">
+                                <rect key="frame" x="16" y="275" width="343" height="91"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1X-dS-YqQ">
+                                <rect key="frame" x="16" y="28" width="46" height="30"/>
+                                <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareMeme:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kFf-I0-bgR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="1MV-Cw-uQI" secondAttribute="trailing" id="3lc-PT-Iu8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tR1-r4-WNe" secondAttribute="trailing" id="794-jl-StF"/>
-                            <constraint firstItem="1MV-Cw-uQI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8la-KH-2IG"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1MV-Cw-uQI" secondAttribute="bottom" id="I8b-iz-zWV"/>
-                            <constraint firstItem="1MV-Cw-uQI" firstAttribute="top" secondItem="tR1-r4-WNe" secondAttribute="bottom" constant="174" id="Kfn-IY-e7S"/>
-                            <constraint firstItem="tR1-r4-WNe" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="133" id="Q9i-QA-JoX"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="tR1-r4-WNe" secondAttribute="leading" id="drz-vc-9lL"/>
+                            <constraint firstItem="tR1-r4-WNe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0xA-ha-jPD"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="p8P-er-kcP" secondAttribute="leading" id="3SC-Eb-TWl"/>
+                            <constraint firstItem="E1X-dS-YqQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3kL-yT-iVp"/>
+                            <constraint firstAttribute="trailing" secondItem="1MV-Cw-uQI" secondAttribute="trailing" id="BYe-zG-iiG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UXR-yo-Rib" secondAttribute="trailing" id="DlT-CR-XOI"/>
+                            <constraint firstItem="E1X-dS-YqQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Enb-6D-uDJ"/>
+                            <constraint firstItem="tR1-r4-WNe" firstAttribute="top" secondItem="p8P-er-kcP" secondAttribute="bottom" constant="-115" id="JWD-qV-EYI"/>
+                            <constraint firstItem="1MV-Cw-uQI" firstAttribute="top" secondItem="tR1-r4-WNe" secondAttribute="bottom" constant="260" id="Lqh-xI-FWG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E1X-dS-YqQ" secondAttribute="trailing" constant="297" id="NOX-Qg-PRn"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1MV-Cw-uQI" secondAttribute="bottom" id="PfY-we-ec3"/>
+                            <constraint firstItem="1MV-Cw-uQI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="R2E-Ia-I1P"/>
+                            <constraint firstItem="UXR-yo-Rib" firstAttribute="top" secondItem="tR1-r4-WNe" secondAttribute="bottom" constant="-91" id="RDP-l6-La1"/>
+                            <constraint firstItem="UXR-yo-Rib" firstAttribute="top" secondItem="p8P-er-kcP" secondAttribute="bottom" constant="90" id="diQ-dn-ryF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="p8P-er-kcP" secondAttribute="trailing" id="i2c-tB-Jam"/>
+                            <constraint firstItem="tR1-r4-WNe" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="iDp-Do-Ymm"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="UXR-yo-Rib" secondAttribute="leading" id="iYW-l1-536"/>
+                            <constraint firstItem="tR1-r4-WNe" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="oBq-EW-TXp"/>
+                            <constraint firstItem="UXR-yo-Rib" firstAttribute="bottom" secondItem="tR1-r4-WNe" secondAttribute="bottom" id="wts-cp-3lI"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomTextField" destination="UXR-yo-Rib" id="Xii-FH-k2l"/>
                         <outlet property="cameraButton" destination="3k8-6f-JbH" id="BcR-rO-Emw"/>
                         <outlet property="imageVIew" destination="tR1-r4-WNe" id="X4k-SH-Y3c"/>
+                        <outlet property="topTextField" destination="p8P-er-kcP" id="zNR-Wq-CMr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79.200000000000003" y="138.98050974512745"/>
+            <point key="canvasLocation" x="-79" y="153"/>
         </scene>
     </scenes>
 </document>
