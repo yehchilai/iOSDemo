@@ -58,16 +58,32 @@
 		FF522A8B1E3860900017DB7F /* MemeMe */ = {
 			isa = PBXGroup;
 			children = (
+				FF522AA31E39618B0017DB7F /* models */,
+				FF522AA21E3961730017DB7F /* delegates */,
 				FF522A8C1E3860900017DB7F /* AppDelegate.swift */,
 				FF522A8E1E3860900017DB7F /* ViewController.swift */,
 				FF522A901E3860900017DB7F /* Main.storyboard */,
 				FF522A931E3860900017DB7F /* Assets.xcassets */,
 				FF522A951E3860900017DB7F /* LaunchScreen.storyboard */,
 				FF522A981E3860900017DB7F /* Info.plist */,
-				FF522A9E1E386F1A0017DB7F /* MemeTextFieldDelegate.swift */,
-				FF522AA01E39286D0017DB7F /* Meme.swift */,
 			);
 			path = MemeMe;
+			sourceTree = "<group>";
+		};
+		FF522AA21E3961730017DB7F /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				FF522A9E1E386F1A0017DB7F /* MemeTextFieldDelegate.swift */,
+			);
+			name = delegates;
+			sourceTree = "<group>";
+		};
+		FF522AA31E39618B0017DB7F /* models */ = {
+			isa = PBXGroup;
+			children = (
+				FF522AA01E39286D0017DB7F /* Meme.swift */,
+			);
+			name = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -15,11 +15,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     let memetextFieldDelegate = MemeTextFieldDelegate()
+    var memes: [Meme]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        memes = appDelegate.memes
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -108,9 +110,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Sgenerate and save a meme image
     func save() {
-//        let memedImage = generateMemedImage()
+        let memedImage = generateMemedImage()
         // Create the meme
-//        let meme = Meme(topString: topTextField.text!, bottomString: bottomTextField.text!, originalImage: imageVIew.image!, memedImage: memedImage)
+        let meme = Meme(topString: topTextField.text!, bottomString: bottomTextField.text!, originalImage: imageVIew.image!, memedImage: memedImage)
+        // add data in the data set
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     func generateMemedImage() -> UIImage {
