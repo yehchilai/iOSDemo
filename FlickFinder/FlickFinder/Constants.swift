@@ -19,8 +19,8 @@ struct Constants {
         static let APIPath = "/services/rest"
         static let APIBaseURL = APIScheme+"://"+APIHost+APIPath
         
-        static let SearchBBoxHalfWidth = 1.0
-        static let SearchBBoxHalfHeight = 1.0
+        static let SearchBBoxHalfWidth = 0.5
+        static let SearchBBoxHalfHeight = 0.5
         static let SearchLatRange = (-90.0, 90.0)
         static let SearchLonRange = (-180.0, 180.0)
     }
@@ -42,8 +42,7 @@ struct Constants {
     // MARK: Flickr Parameter Values
     struct FlickrParameterValues {
         static let SearchMethod = "flickr.photos.search"
-//        static let APIKey = "YOUR_API_KEY_HERE"
-        static let APIKey = "519e38f744f095cef58e3ae22a3cb85d"
+        static let APIKey = "YOUR_API_KEY_HERE"
         static let ResponseFormat = "json"
         static let DisableJSONCallback = "1" /* 1 means "yes" */
         static let GalleryPhotosMethod = "flickr.galleries.getPhotos"

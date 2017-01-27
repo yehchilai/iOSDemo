@@ -54,7 +54,16 @@ class ViewController: UIViewController {
         if !phraseTextField.text!.isEmpty {
             photoTitleLabel.text = "Searching..."
             // TODO: Set necessary parameters!
-            let methodParameters: [String: AnyObject] = [:]
+            let methodParameters: [String: AnyObject] = [
+                Constants.FlickrParameterKeys.SafeSearch:Constants.FlickrParameterValues.UseSafeSearch as AnyObject,
+                Constants.FlickrParameterKeys.Text:phraseTextField.text as AnyObject,
+                Constants.FlickrParameterKeys.Extras:Constants.FlickrParameterValues.MediumURL as AnyObject,
+                Constants.FlickrParameterKeys.APIKey:Constants.FlickrParameterValues.APIKey as AnyObject,
+                Constants.FlickrParameterKeys.Method:Constants.FlickrParameterValues.SearchMethod as AnyObject,
+                Constants.FlickrParameterKeys.Format:Constants.FlickrParameterValues.ResponseFormat as AnyObject,
+                Constants.FlickrParameterKeys.NoJSONCallback:Constants.FlickrParameterValues.DisableJSONCallback as AnyObject
+            ]
+            
             displayImageFromFlickrBySearch(methodParameters)
         } else {
             setUIEnabled(true)
@@ -70,7 +79,16 @@ class ViewController: UIViewController {
         if isTextFieldValid(latitudeTextField, forRange: Constants.Flickr.SearchLatRange) && isTextFieldValid(longitudeTextField, forRange: Constants.Flickr.SearchLonRange) {
             photoTitleLabel.text = "Searching..."
             // TODO: Set necessary parameters!
-            let methodParameters: [String: AnyObject] = [:]
+            let methodParameters: [String: AnyObject] = [
+                Constants.FlickrParameterKeys.SafeSearch:Constants.FlickrParameterValues.UseSafeSearch as AnyObject,
+                Constants.FlickrParameterKeys.BoundingBox:bboxString(lonStr: longitudeTextField.text!, latStr: latitudeTextField.text!) as AnyObject,
+                Constants.FlickrParameterKeys.Extras:Constants.FlickrParameterValues.MediumURL as AnyObject,
+                Constants.FlickrParameterKeys.APIKey:Constants.FlickrParameterValues.APIKey as AnyObject,
+                Constants.FlickrParameterKeys.Method:Constants.FlickrParameterValues.SearchMethod as AnyObject,
+                Constants.FlickrParameterKeys.Format:Constants.FlickrParameterValues.ResponseFormat as AnyObject,
+                Constants.FlickrParameterKeys.NoJSONCallback:Constants.FlickrParameterValues.DisableJSONCallback as AnyObject
+            ]
+
             displayImageFromFlickrBySearch(methodParameters)
         }
         else {
@@ -79,12 +97,27 @@ class ViewController: UIViewController {
         }
     }
     
+    private func bboxString(lonStr:String, latStr: String)-> String{
+        guard let lon = Double(lonStr), let lat = Double(latStr) else{
+            print("lat and lon are not numbers.")
+            return "0,0,0,0"
+        }
+        let lonMin = max(lon - Constants.Flickr.SearchBBoxHalfWidth, Constants.Flickr.SearchLonRange.0)
+        let lonMax = min(lon + Constants.Flickr.SearchBBoxHalfWidth, Constants.Flickr.SearchLonRange.1)
+        let latMin = max(lat - Constants.Flickr.SearchBBoxHalfHeight, Constants.Flickr.SearchLatRange.0)
+        let latMax = min(lat + Constants.Flickr.SearchBBoxHalfHeight, Constants.Flickr.SearchLatRange.1)
+        
+        
+        return "\(lonMin),\(latMin),\(lonMax),\(latMax)"
+    }
+    
     // MARK: Flickr API
     
     private func displayImageFromFlickrBySearch(_ methodParameters: [String: AnyObject]) {
         
-//        print(flickrURLFromParameters(methodParameters))
+        print(flickrURLFromParameters(methodParameters))
         
+        /*
         // TODO: Make request to Flickr!
         let parameters = [
             Constants.FlickrParameterKeys.Method:Constants.FlickrParameterValues.GalleryPhotosMethod,
@@ -96,7 +129,6 @@ class ViewController: UIViewController {
         ]
         let urlString = "\(Constants.Flickr.APIBaseURL)" + escapedParameters(parameters: parameters as [String : AnyObject])
         let url = URL(string: urlString)!
-//        print(url)
         
         let request = URLRequest(url: url)
         
@@ -177,6 +209,7 @@ class ViewController: UIViewController {
         }
         
         task.resume()
+        */
     }
     
     // Convert parameters to be able to send a url request
