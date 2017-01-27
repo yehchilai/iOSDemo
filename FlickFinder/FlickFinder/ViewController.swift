@@ -86,6 +86,26 @@ class ViewController: UIViewController {
         print(flickrURLFromParameters(methodParameters))
         
         // TODO: Make request to Flickr!
+        let url = URL(string: "\(Constants.Flickr.APIBaseURL)?\(Constants.FlickrParameterKeys.Method)=\(Constants.FlickrParameterValues.GalleryPhotosMethod)&\(Constants.FlickrParameterKeys.APIKey)=\(Constants.FlickrParameterValues.APIKey)&\(Constants.FlickrParameterKeys.GalleryID)=\(Constants.FlickrParameterValues.GalleryID)&\(Constants.FlickrParameterKeys.Extras)=\(Constants.FlickrParameterValues.MediumURL)&\(Constants.FlickrParameterKeys.Format)=\(Constants.FlickrParameterValues.ResponseFormat)&\(Constants.FlickrParameterKeys.NoJSONCallback)=\(Constants.FlickrParameterValues.DisableJSONCallback)")!
+         print(url)
+    }
+    
+    private func escapedParameters(parameters: [String:AnyObject])-> String{
+        
+        if parameters.isEmpty{
+            return ""
+        }else{
+            var keyValues = [String]()
+            
+            for (key, value) in parameters{
+                let valueString = "\(value)"
+                let escapedValueString = valueString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                
+                keyValues.append(key + "=" + "\(escapedValueString)")
+            }
+            
+            return "?" + "\(keyValues.joined(separator: "&"))"
+        }
     }
     
     // MARK: Helper for Creating a URL from Parameters
