@@ -128,9 +128,21 @@ class ViewController: UIViewController {
                             let randomNumber = Int(arc4random_uniform(UInt32(photoArray.count)))
                             let photoInfo = photoArray[randomNumber] as [String: AnyObject]
                             
-                            if let imageUrl = photoInfo[Constants.FlickrResponseKeys.MediumURL] as? String, let title = photoInfo[Constants.FlickrResponseKeys.Title] as? String{
-                                print(imageUrl)
-                                print(title)
+                            if let imageUrlStr = photoInfo[Constants.FlickrResponseKeys.MediumURL] as? String, let title = photoInfo[Constants.FlickrResponseKeys.Title] as? String{
+                                
+                                let imageUrl = URL(string: imageUrlStr)
+                                
+                                if let imageData = try? Data(contentsOf: imageUrl!){
+                                    
+                                    let image = UIImage(data: imageData)
+                                    performUIUpdatesOnMain {
+                                        print("update Image!!!!!")
+                                        self.photoImageView.image = image
+                                        self.photoTitleLabel.text = title
+                                        self.setUIEnabled(true)
+                                    }
+                                }
+                                
                             }
                             
                         }
