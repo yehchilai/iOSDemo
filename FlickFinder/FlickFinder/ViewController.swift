@@ -83,11 +83,50 @@ class ViewController: UIViewController {
     
     private func displayImageFromFlickrBySearch(_ methodParameters: [String: AnyObject]) {
         
-        print(flickrURLFromParameters(methodParameters))
+//        print(flickrURLFromParameters(methodParameters))
         
         // TODO: Make request to Flickr!
-        let url = URL(string: "\(Constants.Flickr.APIBaseURL)?\(Constants.FlickrParameterKeys.Method)=\(Constants.FlickrParameterValues.GalleryPhotosMethod)&\(Constants.FlickrParameterKeys.APIKey)=\(Constants.FlickrParameterValues.APIKey)&\(Constants.FlickrParameterKeys.GalleryID)=\(Constants.FlickrParameterValues.GalleryID)&\(Constants.FlickrParameterKeys.Extras)=\(Constants.FlickrParameterValues.MediumURL)&\(Constants.FlickrParameterKeys.Format)=\(Constants.FlickrParameterValues.ResponseFormat)&\(Constants.FlickrParameterKeys.NoJSONCallback)=\(Constants.FlickrParameterValues.DisableJSONCallback)")!
-         print(url)
+        let parameters = [
+            Constants.FlickrParameterKeys.Method:Constants.FlickrParameterValues.GalleryPhotosMethod,
+            Constants.FlickrParameterKeys.APIKey:Constants.FlickrParameterValues.APIKey,
+            Constants.FlickrParameterKeys.GalleryID:Constants.FlickrParameterValues.GalleryID,
+            Constants.FlickrParameterKeys.Extras:Constants.FlickrParameterValues.MediumURL,
+            Constants.FlickrParameterKeys.Format:Constants.FlickrParameterValues.ResponseFormat,
+            Constants.FlickrParameterKeys.NoJSONCallback:Constants.FlickrParameterValues.DisableJSONCallback
+        ]
+        let urlString = "\(Constants.Flickr.APIBaseURL)" + escapedParameters(parameters: parameters as [String : AnyObject])
+        let url = URL(string: urlString)!
+        print(url)
+        
+        let request = URLRequest(url: url)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            // if an error occurs, print it and re-enable the UI
+            func displayError(_ error: String) {
+                print(error)
+                print("URL at time of error: \(url)")
+                performUIUpdatesOnMain {
+                    self.setUIEnabled(true)
+                }
+            }
+
+            if error == nil{
+                if let data = data{
+                    let parsedData:[String:AnyObject]!
+                    do{
+                        parsedData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
+                        
+                    }catch{
+                        displayError("Cannot parse data.")
+                        return
+                    }
+                    print(parsedData)
+                }
+            }
+        }
+        
+        task.resume()
     }
     
     private func escapedParameters(parameters: [String:AnyObject])-> String{
@@ -99,11 +138,15 @@ class ViewController: UIViewController {
             
             for (key, value) in parameters{
                 let valueString = "\(value)"
+//                print(valueString)
                 let escapedValueString = valueString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                
-                keyValues.append(key + "=" + "\(escapedValueString)")
+//                print(escapedValueString!)
+                let kv = key + "=" + "\(escapedValueString!)"
+//                print(kv)
+                keyValues.append(kv)
             }
             
+//            print("?" + "\(keyValues.joined(separator: "&"))")
             return "?" + "\(keyValues.joined(separator: "&"))"
         }
     }
