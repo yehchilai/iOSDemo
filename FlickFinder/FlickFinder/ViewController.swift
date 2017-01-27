@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         ]
         let urlString = "\(Constants.Flickr.APIBaseURL)" + escapedParameters(parameters: parameters as [String : AnyObject])
         let url = URL(string: urlString)!
-        print(url)
+//        print(url)
         
         let request = URLRequest(url: url)
         
@@ -116,12 +116,27 @@ class ViewController: UIViewController {
                     let parsedData:[String:AnyObject]!
                     do{
                         parsedData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
-                        
                     }catch{
                         displayError("Cannot parse data.")
                         return
                     }
-                    print(parsedData)
+                    
+                    if let photoDictionary = parsedData[Constants.FlickrResponseKeys.Photos] as? [String: AnyObject]{
+                        
+                        if let photoArray = photoDictionary[Constants.FlickrResponseKeys.Photo] as? [[String:AnyObject]]{
+                            
+                            let randomNumber = Int(arc4random_uniform(UInt32(photoArray.count)))
+                            let photoInfo = photoArray[randomNumber] as [String: AnyObject]
+                            
+                            if let imageUrl = photoInfo[Constants.FlickrResponseKeys.MediumURL] as? String, let title = photoInfo[Constants.FlickrResponseKeys.Title] as? String{
+                                print(imageUrl)
+                                print(title)
+                            }
+                            
+                        }
+                    }
+                    
+                   
                 }
             }
         }
@@ -129,6 +144,7 @@ class ViewController: UIViewController {
         task.resume()
     }
     
+    // Convert parameters to be able to send a url request
     private func escapedParameters(parameters: [String:AnyObject])-> String{
         
         if parameters.isEmpty{
@@ -138,15 +154,11 @@ class ViewController: UIViewController {
             
             for (key, value) in parameters{
                 let valueString = "\(value)"
-//                print(valueString)
                 let escapedValueString = valueString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-//                print(escapedValueString!)
                 let kv = key + "=" + "\(escapedValueString!)"
-//                print(kv)
                 keyValues.append(kv)
             }
             
-//            print("?" + "\(keyValues.joined(separator: "&"))")
             return "?" + "\(keyValues.joined(separator: "&"))"
         }
     }
