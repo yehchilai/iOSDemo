@@ -304,6 +304,8 @@ class LoginViewController: UIViewController {
             
             /* 6. Use the data! */
             print("userID: \(userID)")
+            self.appDelegate.userID = userID
+            self.completeLogin()
         }
         
         /* 7. Start the request */
