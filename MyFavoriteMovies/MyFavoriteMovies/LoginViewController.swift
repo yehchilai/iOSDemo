@@ -253,7 +253,7 @@ class LoginViewController: UIViewController {
             /* 6. Use the data! */
             print("sessionID: \(sessionID)")
             self.appDelegate.sessionID = sessionID
-            
+            self.getUserID(sessionID)
         }
         /* 7. Start the request */
         task.resume()
@@ -264,11 +264,50 @@ class LoginViewController: UIViewController {
         /* TASK: Get the user's ID, then store it (appDelegate.userID) for future use and go to next view! */
         
         /* 1. Set the parameters */
+        let methodParameters = [
+            Constants.TMDBParameterKeys.ApiKey:Constants.TMDBParameterValues.ApiKey,
+            Constants.TMDBParameterKeys.SessionID:sessionID
+        ]
         /* 2/3. Build the URL, Configure the request */
+        let request = URLRequest(url: self.appDelegate.tmdbURLFromParameters(methodParameters as [String:AnyObject], withPathExtension: "/account"))
         /* 4. Make the request */
-        /* 5. Parse the data */
-        /* 6. Use the data! */
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard (error == nil) else{
+                self.displayError("There was an error: \(error)")
+                return
+            }
+            
+            guard let code = (response as? HTTPURLResponse)?.statusCode, code >= 200 && code <= 299 else{
+                self.displayError("HTTP response code is NOT 2XX.")
+                return
+            }
+            
+            guard let data = data else{
+                self.displayError("Do not have returned data.")
+                return
+            }
+            
+            /* 5. Parse the data */
+            let parsedData:[String:AnyObject]!
+            do{
+                parsedData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
+            }catch{
+                self.displayError("Cannot parse data.")
+                return
+            }
+            
+            guard let userID = parsedData[Constants.TMDBResponseKeys.ID] as? Int else{
+                self.displayError("Cannot find key: \(Constants.TMDBResponseKeys.ID)")
+                return
+            }
+            
+            /* 6. Use the data! */
+            print("userID: \(userID)")
+        }
+        
         /* 7. Start the request */
+        task.resume()
     }
 }
 
