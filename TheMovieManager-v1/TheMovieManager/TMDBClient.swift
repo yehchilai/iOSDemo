@@ -33,11 +33,94 @@ class TMDBClient : NSObject {
 
     // MARK: GET
     
-    //func taskForGETMethod(_ method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {}
+    func taskForGETMethod(_ method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    
+        /* 1. Set the parameters */
+        var methodParameters = parameters
+        methodParameters[TMDBClient.ParameterKeys.ApiKey] = TMDBClient.Constants.ApiKey as AnyObject?
+        
+        /* 2/3. Build the URL, Configure the request */
+        let request = URLRequest(url: TMDBClient.tmdbURLFromParameters(methodParameters as [String:AnyObject], withPathExtension: method))
+        
+        /* 4. Make the request */
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            func displayError(errorMessage:String){
+                print(errorMessage)
+                let userInfo = [NSLocalizedDescriptionKey: errorMessage]
+                completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else{
+                displayError(errorMessage: "There is an error: \(error)")
+                return
+            }
+            
+            guard let code = (response as? HTTPURLResponse)?.statusCode, code >= 200 && code <= 299 else{
+                displayError(errorMessage: "HTTP response code is NOT 2XX.")
+                return
+            }
+            
+            guard let data = data else{
+                displayError(errorMessage: "Do not have returned data.")
+                return
+            }
+            
+            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGET)
+            
+        }
+        
+        /* 7. Start the request */
+        task.resume()
+        return task
+    }
     
     // MARK: POST
     
-    //func taskForPOSTMethod(_ method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {}
+    func taskForPOSTMethod(_ method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+        
+        /* 1. Set the parameters */
+        var methodParameters = parameters
+        methodParameters[TMDBClient.ParameterKeys.ApiKey] = TMDBClient.Constants.ApiKey as AnyObject?
+        
+        /* 2/3. Build the URL, Configure the request */
+        let request = NSMutableURLRequest(url: TMDBClient.tmdbURLFromParameters(methodParameters as [String:AnyObject], withPathExtension: method))
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        /* 4. Make the request */
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            func displayError(errorMessage:String){
+                print(errorMessage)
+                let userInfo = [NSLocalizedDescriptionKey:errorMessage]
+                completionHandlerForPOST(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else{
+                displayError(errorMessage: "There was an error: \(error)")
+                return
+            }
+            
+            guard let code = (response as? HTTPURLResponse)?.statusCode, code >= 200 && code <= 299 else{
+                displayError(errorMessage: "HTTP response code is NOT 2XX")
+                return
+            }
+            
+            guard let data = data else{
+                displayError(errorMessage: "Do no have returned data")
+                return
+            }
+            
+            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForPOST)
+        }
+        
+        /* 7. Start the request */
+        task.resume()
+        
+        return task
+    }
     
     // MARK: GET Image
     
