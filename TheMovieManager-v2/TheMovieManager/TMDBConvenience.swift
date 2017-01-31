@@ -289,15 +289,27 @@ extension TMDBClient {
     func postToWatchlist(_ movie: TMDBMovie, watchlist: Bool, completionHandlerForWatchlist: @escaping (_ result: Int?, _ error: NSError?) -> Void) {
         
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
+        let parameters = [TMDBClient.ParameterKeys.SessionID:TMDBClient.sharedInstance().sessionID!]
+        var mutiableMethod = TMDBClient.Methods.AccountIDWatchlist
+        mutiableMethod = substituteKeyInMethod(mutiableMethod, key: TMDBClient.URLKeys.UserID, value: String(TMDBClient.sharedInstance().userID!))!
+        let jsonBody = "{\"media_type\": \"movie\",\"media_id\": \(movie.id),\"watchlist\": \(watchlist)}"
         /* 2. Make the request */
-        /* 3. Send the desired value(s) to completion handler */
-        
-        /*
-        
-        taskForPOSTMethod(method, parameters: parameters, jsonBody: jsonBody) { (result, error) in
-        
+        let _ = taskForPOSTMethod(mutiableMethod, parameters: parameters as [String:AnyObject], jsonBody: jsonBody) { (results, error) in
+            
+            guard (error == nil) else{
+                completionHandlerForWatchlist(nil, NSError(domain: "postToWatchlist error", code: 0, userInfo: [NSLocalizedDescriptionKey:"postToWatchlist error"]))
+                return
+            }
+            
+            guard let code = results?[TMDBClient.JSONResponseKeys.StatusCode] as? Int else{
+                completionHandlerForWatchlist(nil, NSError(domain: "postToWatchlist cannot find key", code: 0, userInfo: [NSLocalizedDescriptionKey:"postToWatchlist cannot find key"]))
+                return
+            }
+            /* 3. Send the desired value(s) to completion handler */
+            completionHandlerForWatchlist(code, nil)
         }
         
-        */
+        
+        
     }
 }
