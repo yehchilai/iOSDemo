@@ -77,7 +77,7 @@ extension TMDBClient {
         let parameters = [String:AnyObject]()
         let method = Methods.AuthenticationTokenNew
         /* 2. Make the request */
-        taskForGETMethod(method, parameters: parameters) { (results, error) in
+        _ = taskForGETMethod(method, parameters: parameters) { (results, error) in
             guard (error == nil) else{
 //                print(error)
                 completionHandlerForToken(false, nil, "Fail (getRequestToken)")
@@ -120,7 +120,7 @@ extension TMDBClient {
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
         let parameters = [ParameterKeys.RequestToken:self.requestToken!]
         /* 2. Make the request */
-        taskForGETMethod(Methods.AuthenticationSessionNew, parameters: parameters as [String:AnyObject]) { (results, error) in
+        _ = taskForGETMethod(Methods.AuthenticationSessionNew, parameters: parameters as [String:AnyObject]) { (results, error) in
             
             guard (error == nil) else{
 //                print(error)
@@ -144,7 +144,7 @@ extension TMDBClient {
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
         let parameter = [ParameterKeys.SessionID:self.sessionID!]
         /* 2. Make the request */
-        taskForGETMethod(Methods.Account, parameters: parameter as [String:AnyObject]) { (results, error) in
+        _ = taskForGETMethod(Methods.Account, parameters: parameter as [String:AnyObject]) { (results, error) in
             guard (error == nil) else{
                 completionHandlerForUserID(false, nil, "There was an error at getUserID")
                 return
