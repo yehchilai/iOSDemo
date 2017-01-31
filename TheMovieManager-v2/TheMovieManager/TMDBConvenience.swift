@@ -31,7 +31,7 @@ extension TMDBClient {
             if success {
                 
                 // success! we have the requestToken!
-                print(requestToken)
+                print(requestToken!)
                 self.requestToken = requestToken
                 
                 self.loginWithToken(requestToken, hostViewController: hostViewController) { (success, errorString) in
@@ -188,16 +188,30 @@ extension TMDBClient {
     func getWatchlistMovies(_ completionHandlerForWatchlist: @escaping (_ result: [TMDBMovie]?, _ error: NSError?) -> Void) {
         
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
+        let parameters = [ParameterKeys.SessionID:TMDBClient.sharedInstance().sessionID]
+        var mutableMethod:String = Methods.AccountIDWatchlistMovies
+        mutableMethod = substituteKeyInMethod(mutableMethod, key: TMDBClient.URLKeys.UserID, value: String(TMDBClient.sharedInstance().userID!))!
         /* 2. Make the request */
-        /* 3. Send the desired value(s) to completion handler */
         
-        /*
-        
-        taskForGETMethod(method, parameters: parameters) { (results, error) in
-        
+        let _ = taskForGETMethod(mutableMethod, parameters: parameters as [String:AnyObject]) { (results, error) in
+            
+            guard (error == nil) else{
+                completionHandlerForWatchlist(nil, NSError(domain: "getWatchlistMovies error", code: 0, userInfo: [NSLocalizedDescriptionKey: "getWatchlistMovies error"]))
+                return
+            }
+            
+            guard let results = results?[TMDBClient.JSONResponseKeys.MovieResults] as? [[String:AnyObject]] else{
+                completionHandlerForWatchlist(nil, NSError(domain: "getWatchlistMovies cannot find key", code: 0, userInfo: [NSLocalizedDescriptionKey: "getWatchlistMovies cannot find key"]))
+                return
+            }
+            /* 3. Send the desired value(s) to completion handler */
+            
+            let movies = TMDBMovie.moviesFromResults(results)
+            completionHandlerForWatchlist(movies, nil)
+            
         }
         
-        */
+        
     }
     
     func getMoviesForSearchString(_ searchString: String, completionHandlerForMovies: @escaping (_ result: [TMDBMovie]?, _ error: NSError?) -> Void) -> URLSessionDataTask? {

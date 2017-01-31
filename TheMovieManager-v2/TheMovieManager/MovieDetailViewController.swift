@@ -70,7 +70,7 @@ class MovieDetailViewController: UIViewController {
                         }
                     }
                 } else {
-                    print(error)
+                    print(error!)
                 }
             }
             
@@ -92,7 +92,7 @@ class MovieDetailViewController: UIViewController {
                         }
                     }
                 } else {
-                    print(error)
+                    print(error!)
                 }
             }
             
