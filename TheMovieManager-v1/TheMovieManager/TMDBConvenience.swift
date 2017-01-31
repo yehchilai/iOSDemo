@@ -31,7 +31,7 @@ extension TMDBClient {
             if success {
                 
                 // success! we have the requestToken!
-                print(requestToken)
+                //print(requestToken)
                 self.requestToken = requestToken
                 
                 self.loginWithToken(requestToken, hostViewController: hostViewController) { (success, errorString) in
@@ -77,10 +77,7 @@ extension TMDBClient {
         let parameters = [String:AnyObject]()
         let method = Methods.AuthenticationTokenNew
         /* 2. Make the request */
-        /* 3. Send the desired value(s) to completion handler */
-        
         taskForGETMethod(method, parameters: parameters) { (results, error) in
-            
             guard (error == nil) else{
 //                print(error)
                 completionHandlerForToken(false, nil, "Fail (getRequestToken)")
@@ -93,6 +90,7 @@ extension TMDBClient {
                 return
             }
             print("token: \(token)")
+            /* 3. Send the desired value(s) to completion handler */
             completionHandlerForToken(true, token, nil)
             
         }
@@ -120,31 +118,50 @@ extension TMDBClient {
     private func getSessionID(_ requestToken: String?, completionHandlerForSession: @escaping (_ success: Bool, _ sessionID: String?, _ errorString: String?) -> Void) {
         
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
+        let parameters = [ParameterKeys.RequestToken:self.requestToken]
         /* 2. Make the request */
-        /* 3. Send the desired value(s) to completion handler */
-        
-        /*
-        
-        taskForGETMethod(method, parameters: parameters) { (results, error) in
-        
+        taskForGETMethod(Methods.AuthenticationSessionNew, parameters: parameters as [String:AnyObject]) { (results, error) in
+            
+            guard (error == nil) else{
+//                print(error)
+                completionHandlerForSession(false, nil, "There was an error at getSessionID.")
+                return
+            }
+            
+            guard let sessionIDResponse = results?[JSONResponseKeys.SessionID] as? String else{
+                completionHandlerForSession(false, nil, "Cannot find key: JSONResponseKeys.SessionID.")
+                return
+            }
+            
+            self.sessionID = sessionIDResponse
+            /* 3. Send the desired value(s) to completion handler */
+            completionHandlerForSession(true, sessionIDResponse, nil)
         }
-        
-        */
+
+       
     }
     
     private func getUserID(_ completionHandlerForUserID: @escaping (_ success: Bool, _ userID: Int?, _ errorString: String?) -> Void) {
         
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
+        let parameter = [ParameterKeys.SessionID:self.sessionID]
         /* 2. Make the request */
-        /* 3. Send the desired value(s) to completion handler */
-        
-        /*
-        
-        taskForGETMethod(method, parameters: parameters) { (results, error) in
-        
+        taskForGETMethod(Methods.Account, parameters: parameter as [String:AnyObject]) { (results, error) in
+            guard (error == nil) else{
+                completionHandlerForUserID(false, nil, "There was an error at getUserID")
+                return
+            }
+            
+            guard let userIDResponse = results?[JSONResponseKeys.UserID] as? Int else{
+                completionHandlerForUserID(false, nil, "Cannot find key:\(JSONResponseKeys.UserID)")
+                return
+            }
+            
+            self.userID = userIDResponse
+            /* 3. Send the desired value(s) to completion handler */
+            completionHandlerForUserID(true, self.userID, nil)
         }
         
-        */
     }
     
     // MARK: GET Convenience Methods
