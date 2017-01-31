@@ -118,7 +118,7 @@ extension TMDBClient {
     private func getSessionID(_ requestToken: String?, completionHandlerForSession: @escaping (_ success: Bool, _ sessionID: String?, _ errorString: String?) -> Void) {
         
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
-        let parameters = [ParameterKeys.RequestToken:self.requestToken]
+        let parameters = [ParameterKeys.RequestToken:self.requestToken!]
         /* 2. Make the request */
         taskForGETMethod(Methods.AuthenticationSessionNew, parameters: parameters as [String:AnyObject]) { (results, error) in
             
@@ -132,8 +132,6 @@ extension TMDBClient {
                 completionHandlerForSession(false, nil, "Cannot find key: JSONResponseKeys.SessionID.")
                 return
             }
-            
-            self.sessionID = sessionIDResponse
             /* 3. Send the desired value(s) to completion handler */
             completionHandlerForSession(true, sessionIDResponse, nil)
         }
@@ -144,7 +142,7 @@ extension TMDBClient {
     private func getUserID(_ completionHandlerForUserID: @escaping (_ success: Bool, _ userID: Int?, _ errorString: String?) -> Void) {
         
         /* 1. Specify parameters, the API method, and the HTTP body (if POST) */
-        let parameter = [ParameterKeys.SessionID:self.sessionID]
+        let parameter = [ParameterKeys.SessionID:self.sessionID!]
         /* 2. Make the request */
         taskForGETMethod(Methods.Account, parameters: parameter as [String:AnyObject]) { (results, error) in
             guard (error == nil) else{
@@ -156,10 +154,8 @@ extension TMDBClient {
                 completionHandlerForUserID(false, nil, "Cannot find key:\(JSONResponseKeys.UserID)")
                 return
             }
-            
-            self.userID = userIDResponse
             /* 3. Send the desired value(s) to completion handler */
-            completionHandlerForUserID(true, self.userID, nil)
+            completionHandlerForUserID(true, userIDResponse, nil)
         }
         
     }
